@@ -284,6 +284,10 @@ export async function handleStorefrontSelection(
     })),
   ];
 
+  if (choices.length === 1) {
+    return;
+  }
+
   const storefrontId = await renderSelectPrompt({
     message: 'Select a Hydrogen storefront to link',
     choices,

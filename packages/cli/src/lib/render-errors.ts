@@ -1,4 +1,4 @@
-import {renderFatalError} from '@shopify/cli-kit/node/ui';
+import {renderFatalError, renderWarning} from '@shopify/cli-kit/node/ui';
 import {outputContent, outputToken} from '@shopify/cli-kit/node/output';
 import type {AdminSession} from './auth.js';
 
@@ -42,12 +42,9 @@ interface MissingLink {
 }
 
 export function renderMissingLink({session, cliCommand}: MissingLink) {
-  renderFatalError({
-    name: 'NoLinkedStorefrontError',
-    type: 0,
-    message: `No linked Hydrogen storefront on ${session.storeFqdn}`,
-    skipOclifErrorHandling: true,
-    tryMessage: [
+  renderWarning({
+    headline: `No linked Hydrogen storefront on ${session.storeFqdn}`,
+    body: [
       'To pull environment variables or to deploy to Oxygen, link this project to a Hydrogen storefront. To select a storefront to link, run',
       {command: `${cliCommand} link`},
     ],
