@@ -1,7 +1,7 @@
 import {describe, it, expect, vi, beforeEach, afterEach} from 'vitest';
 import type {HydrogenSession, HydrogenSessionData} from '../hydrogen';
 import {createCustomerAccountClient} from './customer';
-import {CUSTOMER_ACCOUNT_SESSION_KEY} from './constants';
+import {CUSTOMER_ACCOUNT_SESSION_KEY} from '../constants';
 import crypto from 'node:crypto';
 
 if (!globalThis.crypto) {
@@ -519,7 +519,6 @@ describe('customer', () => {
           expiresAt: expect.any(String),
           idToken: 'e30=.eyJub25jZSI6ICJub25jZSJ9.signature',
           refreshToken: 'refresh_token',
-          redirectPath: undefined,
         }),
       );
     });
@@ -570,7 +569,6 @@ describe('customer', () => {
           expiresAt: expect.any(String),
           idToken: 'e30=.eyJub25jZSI6ICJub25jZSJ9.signature',
           refreshToken: 'refresh_token',
-          redirectPath: undefined,
         }),
       );
     });

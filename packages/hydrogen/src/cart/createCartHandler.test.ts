@@ -4,7 +4,7 @@ import {
   HydrogenCartCustom,
   createCartHandler,
 } from './createCartHandler';
-import {mockCreateStorefrontClient, mockHeaders} from './cart-test-helper';
+import {mockCreateCustomerAccountClient, mockCreateStorefrontClient, mockHeaders} from './cart-test-helper';
 
 type MockCarthandler = {
   cartId?: string;
@@ -17,6 +17,7 @@ function getCartHandler(options: MockCarthandler = {}) {
   const {cartId, ...rest} = options;
   return createCartHandler({
     storefront: mockCreateStorefrontClient(),
+    customerAccount: mockCreateCustomerAccountClient(),
     getCartId: () =>
       options.cartId ? `gid://shopify/Cart/${options.cartId}` : undefined,
     setCartId: () => new Headers(),
@@ -153,6 +154,14 @@ describe('createCartHandler', () => {
   });
 
   it('function create has a working default implementation', async () => {
+    const cart = getCartHandler({cartId: 'c1-123'});
+
+    const result = await cart.create({});
+
+    expect(result.cart).toHaveProperty('id', 'c1-new-cart-id');
+  });
+
+  it('function create includes buyerIdentity in args', async () => {
     const cart = getCartHandler({cartId: 'c1-123'});
 
     const result = await cart.create({});
