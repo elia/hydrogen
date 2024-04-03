@@ -27,7 +27,8 @@ import type {
 } from '@shopify/hydrogen/storefront-api-types';
 import {getVariantUrl} from '~/lib/variants';
 
-export const meta: MetaFunction<typeof loader> = ({data}) => {
+export const meta: MetaFunction<typeof loader> = ({data, location}) => {
+  console.log(location.search);
   return [{title: `Hydrogen | ${data?.product.title ?? ''}`}];
 };
 
