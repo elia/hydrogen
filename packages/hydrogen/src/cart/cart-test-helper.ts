@@ -2,7 +2,7 @@ import {CachingStrategy} from '../cache/strategies';
 import type {ExecutionArgs} from 'graphql';
 import {Storefront} from '../storefront';
 import {CacheNone} from '../cache/strategies';
-import { CustomerAccount } from '../customer/types';
+import {CustomerAccount} from '../customer/types';
 
 export const BUYER_ACCESS_TOKEN = 'sha123';
 export const BUYER_LOCATION_ID = 'gid://shopify/CompanyLocation/1';

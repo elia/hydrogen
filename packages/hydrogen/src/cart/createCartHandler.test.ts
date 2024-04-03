@@ -4,7 +4,11 @@ import {
   HydrogenCartCustom,
   createCartHandler,
 } from './createCartHandler';
-import {mockCreateCustomerAccountClient, mockCreateStorefrontClient, mockHeaders} from './cart-test-helper';
+import {
+  mockCreateCustomerAccountClient,
+  mockCreateStorefrontClient,
+  mockHeaders,
+} from './cart-test-helper';
 
 type MockCarthandler = {
   cartId?: string;
@@ -154,14 +158,6 @@ describe('createCartHandler', () => {
   });
 
   it('function create has a working default implementation', async () => {
-    const cart = getCartHandler({cartId: 'c1-123'});
-
-    const result = await cart.create({});
-
-    expect(result.cart).toHaveProperty('id', 'c1-new-cart-id');
-  });
-
-  it('function create includes buyerIdentity in args', async () => {
     const cart = getCartHandler({cartId: 'c1-123'});
 
     const result = await cart.create({});
