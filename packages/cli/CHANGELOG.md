@@ -1,5 +1,68 @@
 # @shopify/cli-hydrogen
 
+## 8.0.0
+
+### Major Changes
+
+- Hydrogen CLI now requires `@shopify/mini-oxygen` to be installed separately as a dev dependency. It is still used automatically under the hood so there is no need to change your application code aside from installing the dependency. ([#1891](https://github.com/Shopify/hydrogen/pull/1891)) by [@frandiox](https://github.com/frandiox)
+
+  Also, if a port provided via `--port` or `--inspector-port` flags is already in use, the CLI will now exit with an error message instead of finding a new open port. When the flags are not provided, the CLI will still find an open port.
+
+### Minor Changes
+
+- `--env` flag has deprecated the `--env-branch` flag for several Hydrogen CLI commands ([#1841](https://github.com/Shopify/hydrogen/pull/1841)) by [@aswamy](https://github.com/aswamy)
+
+  - `--env` will allow the user to provide an environment's handle when performing Hydrogen CLI commands
+    - Run `env list` to display all the environments and its associated handles
+  - All Hydrogen CLI commands that contain the `--env-branch` flag will also contain the `--env` flag
+  - `--env-branch` flag will be deprecated on all Hydrogen CLI commands
+
+- Support scaffolding projects from external repositories using the `--template` flag. ([#1867](https://github.com/Shopify/hydrogen/pull/1867)) by [@frandiox](https://github.com/frandiox)
+
+  The following examples are equivalent:
+
+  ```sh
+  npm create @shopify/hydrogen -- --template shopify/hydrogen-demo-store
+  npm create @shopify/hydrogen -- --template github.com/shopify/hydrogen-demo-store
+  npm create @shopify/hydrogen -- --template https://github.com/shopify/hydrogen-demo-store
+  ```
+
+- ✨ Added `npx shopify hydrogen customer-account push` command to CLI that takes the url in `--dev-origin` and push the config to Shopify Admin ([#1804](https://github.com/Shopify/hydrogen/pull/1804)) by [@michenly](https://github.com/michenly)
+
+  ✨ Added `--customer-account-push` flag to the dev CLI command. This flag is meant be use for storefront that uses [Customer Account API](https://shopify.dev/docs/api/customer). It create a tunnel, and push the tunnel url to Shopify Admin.
+  ✨ skeleton template now use `dev --customer-account-push` to start dev server
+
+### Patch Changes
+
+- Improve development logs when using Vite. ([#1927](https://github.com/Shopify/hydrogen/pull/1927)) by [@frandiox](https://github.com/frandiox)
+
+- Bump internal workerd dependency to fix a bug when running on Node 21. ([#1866](https://github.com/Shopify/hydrogen/pull/1866)) by [@frandiox](https://github.com/frandiox)
+
+- Support Node's `NODE_TLS_REJECT_UNAUTHORIZED` and `NODE_EXTRA_CA_CERTS` [environment variables](https://nodejs.org/api/cli.html#environment-variables) in the worker environment. ([#1882](https://github.com/Shopify/hydrogen/pull/1882)) by [@frandiox](https://github.com/frandiox)
+
+  Use this at your own risk to disable certificate validation or provide additional CA certificates when making HTTPS requests from the worker:
+
+  ```sh
+  # Disable certificate validation
+  NODE_TLS_REJECT_UNAUTHORIZED=0 npm run dev
+
+  # Provide additional CA certificates
+  NODE_EXTRA_CA_CERTS=/usr/.../ca-certificates/my-file.crt npm run dev
+  ```
+
+- Add `--quickstart` flag option to init/create command ([#1822](https://github.com/Shopify/hydrogen/pull/1822)) by [@gfscott](https://github.com/gfscott)
+
+- Fix the `--markets` flag when using `npm create @shopify/hydrogen`. ([#1916](https://github.com/Shopify/hydrogen/pull/1916)) by [@frandiox](https://github.com/frandiox)
+
+- Handle duplicate storefront names when running `link` command ([#1860](https://github.com/Shopify/hydrogen/pull/1860)) by [@gfscott](https://github.com/gfscott)
+
+- Improve `h2 setup vite` command to cover more migration steps (e.g. vanilla-extract, css-modules, etc.) and keep Remix future flags. ([#1915](https://github.com/Shopify/hydrogen/pull/1915)) by [@frandiox](https://github.com/frandiox)
+
+- Add `--verbose` flag to `h2 dev` and `h2 preview` commands to enable verbose logging. Only CLI logs become verbose by default. If you also want to see verbose logs from Vite as well, use `DEBUG=* h2 dev` instead. ([#1928](https://github.com/Shopify/hydrogen/pull/1928)) by [@frandiox](https://github.com/frandiox)
+
+- Updated dependencies [[`140e4768`](https://github.com/Shopify/hydrogen/commit/140e4768c880aaed4ba95b1d4c707df6963e011c)]:
+  - @shopify/mini-oxygen@3.0.0
+
 ## 7.1.2
 
 ### Patch Changes
